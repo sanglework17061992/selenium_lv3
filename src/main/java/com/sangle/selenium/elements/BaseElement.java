@@ -199,6 +199,132 @@ public abstract class BaseElement {
         return performResult("get attribute: " + attributeName, () -> getVisibleElement().getAttribute(attributeName));
     }
 
+    // Validation methods - integrating with validation framework
+    
+    /**
+     * Creates an ElementValidator for this element with the current driver
+     * @return ElementValidator instance for chaining validations
+     */
+    public com.sangle.selenium.validation.ElementValidator validate() {
+        return new com.sangle.selenium.validation.ElementValidator(getDriver());
+    }
+    
+    /**
+     * Validates that this element is visible
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldBeVisible(String message) {
+        validate().isVisible(this, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element is not visible
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldNotBeVisible(String message) {
+        validate().isNotVisible(this, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element is enabled
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldBeEnabled(String message) {
+        validate().isEnabled(this, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element is disabled
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldBeDisabled(String message) {
+        validate().isDisabled(this, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element has the expected text
+     * @param expectedText expected text content
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldHaveText(String expectedText, String message) {
+        validate().hasText(this, expectedText, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element's text contains the expected substring
+     * @param expectedSubstring expected substring
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldContainText(String expectedSubstring, String message) {
+        validate().textContains(this, expectedSubstring, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element has the expected attribute value
+     * @param attributeName attribute name
+     * @param expectedValue expected attribute value
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldHaveAttribute(String attributeName, String expectedValue, String message) {
+        validate().hasAttribute(this, attributeName, expectedValue, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element has the expected state
+     * @param expectedState expected element state
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldHaveState(ElementState expectedState, String message) {
+        validate().hasState(this, expectedState, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element exists in the DOM
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldExist(String message) {
+        validate().exists(this, message);
+        return this;
+    }
+    
+    /**
+     * Validates that this element does not exist in the DOM
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldNotExist(String message) {
+        validate().doesNotExist(this, message);
+        return this;
+    }
+    
+    /**
+     * Validates that elements matching this locator count equals expected
+     * @param expectedCount expected count
+     * @param message validation message
+     * @return this element for method chaining
+     */
+    public BaseElement shouldHaveCount(int expectedCount, String message) {
+        validate().countEquals(this, expectedCount, message);
+        return this;
+    }
+
     // Element state management methods
     
     /**
